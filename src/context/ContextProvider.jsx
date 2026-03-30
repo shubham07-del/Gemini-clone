@@ -41,13 +41,23 @@ const ContextProvider = (props) => {
     setLoading(true);
     setShowResults(true);
     let response;
-    if (prompt !== undefined) {
-      response = await runChat(prompt);
-      setRecentPrompt(prompt);
-    } else {
-      setPrevPrompt((prev) => [...prev, input]);
-      setRecentPrompt(input);
-      response = await runChat(input);
+    try {
+      if (prompt !== undefined) {
+        response = await runChat(prompt);
+        setRecentPrompt(prompt);
+      } else {
+        setPrevPrompt((prev) => [...prev, input]);
+        setRecentPrompt(input);
+        response = await runChat(input);
+      }
+    } catch (err) {
+      console.error("onSent error:", err);
+      response = "Something went wrong. Please try again.";
+    }
+
+    // Guard: if API returned nothing, show a safe message
+    if (!response || typeof response !== "string") {
+      response = "Something went wrong. Please check your API key and try again.";
     }
 
     let responseArray = response.split("**");

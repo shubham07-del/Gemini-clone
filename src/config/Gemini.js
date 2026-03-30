@@ -1,24 +1,27 @@
-import { GoogleGenAI } from '@google/genai';
+import Groq from 'groq-sdk';
 
-// Initialize the AI with your API key
-const ai = new GoogleGenAI({
-  apiKey: import.meta.env.VITE_GEMINI_API_KEY,
+// Initialize Groq with your API key
+const groq = new Groq({
+  apiKey: import.meta.env.VITE_GROQ_API_KEY,
+  dangerouslyAllowBrowser: true,
 });
 
 // This function will be called by your React components when you click "Send"
 const runChat = async (prompt) => {
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
+    const response = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'user', content: prompt }
+      ],
     });
-    
-    // Return the response text so we can display it on the screen
-    return response.text;
-    
+
+    // Return the response text
+    return response.choices[0].message.content;
+
   } catch (error) {
-    console.error("Error while calling Gemini API:", error);
-    return "Sorry, something went wrong!";
+    console.error("Error while calling Groq API:", error);
+    return "Sorry, something went wrong! " + error.message;
   }
 }
 
