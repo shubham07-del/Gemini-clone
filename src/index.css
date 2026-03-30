@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+* {
+
+    font-family: 'Outfit', sans-serif;
+}
+
+.sidebar img{
+    width: 30px;
+}
+.title{
+    color: transparent;
+    background: linear-gradient(to right,#4b90ff,#ff5546 20%);
+    background-clip: text;
+}
+.mistake{
+    margin: 20px auto;
+    font-size: 13px;
+    color: #3f3f3f;
+    text-align: center  ;
+}
+.result::-webkit-scrollbar{
+    display: none;
+}
+
+
+.result-data{
+    word-spacing: 0.6rem;
+}
+
+.loader hr{
+    border: none;
+    background-color: #fff;
+    height: 20px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #9ed7ff,white,#9ed7ff);
+    background-size: 800px 50px;
+    animation: loader 3s infinite linear;
+}
+
+
+@keyframes loader {
+
+    0%{
+        background-position: -800px 0px;
+    }
+    100%{
+        background-position: 800px 0px;
+    }
+}
+
+.app{
+    animation: fadeIn 1s linear;
+}
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
