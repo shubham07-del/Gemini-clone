@@ -1,9 +1,10 @@
 import { GoogleGenAI } from '@google/genai';
-const ai = new GoogleGenAI({ apiKey: 'AIzaSyBdS_jdTRGO2K3EjfpZaQPdNZ9i6BWWjcU' });
+// API key is read from .env — never hardcode keys here!
+const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY });
 async function run() {
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.0-flash',
       contents: "Hello world!",
     });
     console.log("SUCCESS:", response.text);
